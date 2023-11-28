@@ -1,0 +1,29 @@
+.inputcontainer{
+    display: flex;
+    padding: 19px 24px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 46px;
+    border: 2px solid var(--white, #F5F5F5);
+    width: 406px;
+    height: 62px;
+
+    input{
+        border: none;
+        background-color: transparent;
+        outline: none;
+        width: 100%;
+
+    }
+
+    input::placeholder{
+        color: var(--gray-gray-300, #75767D);
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+
