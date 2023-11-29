@@ -1,0 +1,17 @@
+.register{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: var(--gradient-background, linear-gradient(180deg, #2E2F36 0%, #17181C 100%));
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.maincontent{
+  display: flex;
+  justify-content: space-between;
+}
+
+.image{
+  width: 50%;
+}
