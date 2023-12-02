@@ -2,18 +2,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styles from "./Input.module.scss"
+import { InputProps } from "../../util/model";
 
-interface inputProps{
-    type: string;
-    placeholder: string;
-    isRequired?: boolean;
-    icon: string;
-    onChange: any;
-    value: any;
-    isValid: boolean | string;
-}
-
-export default function Input(props:inputProps) {
+export default function Input(props:InputProps) {
   var validate = styles.default
   if(props.isValid !== true && props.isValid !== "default" ){
     validate = styles.invalid
