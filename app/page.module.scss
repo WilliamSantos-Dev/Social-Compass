@@ -20,7 +20,7 @@
   }
   h2 {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     font-size: 16px;
     font-weight: 400;
     width: 400px;
@@ -31,12 +31,12 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 20px;
+    gap: 24px;
   }
   .formcontent{
     display: flex;
     flex-direction: column;
-    gap:20px
+    gap:24px
   }
   button,
   h2,
@@ -50,6 +50,15 @@
   h2 {
     font-size: 16px;
     font-weight: 400;
+  }
+  p{
+    color: var(--yellow, #E9B425);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
   span {
     font-weight: 700;
