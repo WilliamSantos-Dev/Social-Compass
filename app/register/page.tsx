@@ -25,9 +25,7 @@ export default function Home() {
       <div className={styles.register}>
         <RegisterForm onSubmitForm={handleRegistrationSubmit} />
       </div>
-      <div className={styles.image}>
-        <img src={registerImage} alt="Image computer" />
-      </div>
+      <img className={styles.image} src={registerImage} alt="Image computer" />
     </div>
   );
 }

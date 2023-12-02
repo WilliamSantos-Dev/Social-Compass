@@ -3,16 +3,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./Register.module.scss";
 import Input from "../components/Input/Input";
-import {
-  validEmail,
-  validUsername,
-  validName,
-  validPassword,
-  FormData,
-  validDate,
-  validForm,
-} from "./validations";
 import Button from "../components/Button/Button";
+import { validations, FormData } from "./validations";
+import api from "../util/api";
 
 interface Props {
   onSubmitForm: any;
@@ -23,10 +16,10 @@ export default function RegisterForm(props: Props) {
   const initialFormData: FormData = {
     name: "",
     username: "",
-    nascimento: null,
+    nascimento: new Date(),
     email: "",
-    senha: "",
-    confirmesenha: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -46,9 +39,10 @@ export default function RegisterForm(props: Props) {
     e.preventDefault();
     console.log("Dados do formulário:", formData);
     onSubmitForm(formData);
-    setEmailValid(validEmail(formData));
-    setUsernameValid(validUsername(formData));
-    if (validForm(formData)) console.log("APROVADO");
+    setEmailValid(validations.email(formData));
+    setUsernameValid(validations.username(formData));
+    if (validations.Form(formData)) 
+    api.register(formData)
     else {
       console.log("Nao aprovado");
     }
@@ -65,72 +59,86 @@ export default function RegisterForm(props: Props) {
           type={"text"}
           placeholder={"Nome"}
           icon={"user"}
-          onChange={(res: any) => handleInputChange("name", res.target.value)}
+          onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
+            handleInputChange("name", res.target.value)
+          }
           value={formData.name}
-          isValid={validName(formData)}
+          isValid={validations.fullname(formData)}
         />
-        {validName(formData) !== true && <p>{validName(formData)}</p>}
+        {validations.fullname(formData) !== true && (
+          <p>{validations.fullname(formData)}</p>
+        )}
         <Input
           isRequired
           type={"text"}
           placeholder={"Usuário"}
           icon={"username"}
-          onChange={(res: any) =>
+          onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange("username", res.target.value)
           }
           value={formData.username}
           isValid={usernameValid}
         />
-        {emailValid !== "default" && <p>{validUsername(formData)}</p>}
+        {validations.username(formData) !== true && (
+          <p>{validations.username(formData)}</p>
+        )}
+
         <Input
           isRequired
           type={"date"}
           placeholder={"Data de Nascimento"}
           icon={"date"}
-          onChange={(res: any) =>
+          onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange("nascimento", res.target.value)
           }
           value={formData.nascimento}
-          isValid={validDate(formData)}
+          isValid={validations.birthdate(formData)}
         />
-        {validDate(formData) !== true && validDate(formData) !== "default" && (
-          <p>{validDate(formData)}</p>
-        )}
+        {validations.birthdate(formData) !== true &&
+          validations.birthdate(formData) !== "default" && (
+            <p>{validations.birthdate(formData)}</p>
+          )}
         <Input
           isRequired
           type={"email"}
           placeholder={"Email"}
           icon={"email"}
-          onChange={(res: any) => handleInputChange("email", res.target.value)}
+          onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
+            handleInputChange("email", res.target.value)
+          }
           value={formData.email}
           isValid={emailValid}
         />
-        {validEmail(formData) !== "default" &&
-          validEmail(formData) !== true && <p>{validEmail(formData)}</p>}
+        {validations.email(formData) !== "default" &&
+          validations.email(formData) !== true && (
+            <p>{validations.email(formData)}</p>
+          )}
         <Input
           isRequired
           type={"password"}
           placeholder={"Senha"}
           icon={"padlock"}
-          onChange={(res: any) => handleInputChange("senha", res.target.value)}
-          value={formData.senha}
-          isValid={validPassword(formData)}
+          onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
+            handleInputChange("password", res.target.value)
+          }
+          value={formData.password}
+          isValid={validations.password(formData)}
         />
         <Input
           isRequired
           type={"password"}
           placeholder={"Confimar Senha"}
           icon={"security"}
-          onChange={(res: any) =>
-            handleInputChange("confirmesenha", res.target.value)
+          onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
+            handleInputChange("confirmPassword", res.target.value)
           }
-          value={formData.confirmesenha}
-          isValid={validPassword(formData)}
+          value={formData.confirmPassword}
+          isValid={validations.password(formData)}
         />
-        {validPassword(formData) !== "default" && (
-          <p>{validPassword(formData)}</p>
+        {validations.password(formData) !== "default" && (
+          <p>{validations.password(formData)}</p>
         )}
-        <Button type="submit" text="Registra-se"/>
+        <Button type="submit" text="Registra-se" />
         <h2>
           Já possui uma conta?
           <Link href={"/"}>
