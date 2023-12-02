@@ -7,10 +7,10 @@ export default function Menu() {
     <img src="compass-white.png" alt="Compass Uol" className={styles.imgcompass}/>
     
     <div className={styles.options}>
-        <ItemMenu text="Página Inicial" link="register"/>
-        <ItemMenu text="Meu Perfil" link=""/>
-        <ItemMenu text="Marketplace" link=""/>
-        <ItemMenu text="Sair" link=""/>
+        <ItemMenu text="Página Inicial" link="feed" />
+        <ItemMenu text="Meu Perfil" link="myprofile/"/>
+        <ItemMenu text="Marketplace" link="marketplace/"/>
+        <ItemMenu text="Sair" link="login/"/>
     </div>
   </div>;
 }
