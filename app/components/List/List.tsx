@@ -1,0 +1,74 @@
+/* eslint-disable @next/next/no-img-element */
+"use client";
+import styles from "./List.module.scss";
+import { MarketItem, User } from "../../util/models";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface Props {
+  friends?: User[];
+  marketItems?: MarketItem[];
+  listName: string;
+}
+
+export default function List(list: Props) {
+  const [mode, setMode] = useState("upArrow");
+
+  const changemode = () => {
+    if (mode === "upArrow") {
+      setMode("downArrow");
+    } else {
+      setMode("upArrow");
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.nav}>
+        <p>{list.listName}</p>
+        <img src={`/icons/${mode}.svg`} alt="Arrow" onClick={changemode} />
+      </div>
+      <AnimatePresence>
+        {mode === "upArrow" && (
+          <motion.div
+            key="list"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.19 }}
+          >
+            {list.friends && (
+              <div className={styles.listitem}>
+                {list.friends.map((friend) => (
+                  <div key={friend.id} className={styles.item}>
+                    <img
+                      src={friend.image || "/noprofile.jpg"}
+                      alt={friend.name}
+                    />
+                    <p>{friend.name}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {list.marketItems && (
+              <div className={styles.listitem}>
+                {list.marketItems.map((item) => (
+                  <div key={item.id} className={styles.item}>
+                    <img
+                      src={item.image || "/noimageitem.jpg"}
+                      alt={item.name}
+                    />
+                    <div className={styles.iteminfo}>
+                      <p>{item.name}</p>
+                      <p className={styles.price}> R$ {item.price}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

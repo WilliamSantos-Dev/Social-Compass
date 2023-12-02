@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styles from "./Input.module.scss"
-import { InputProps } from "../../util/model";
+import { InputProps } from "../../util/models";
 
 export default function Input(props:InputProps) {
   var validate = styles.default
