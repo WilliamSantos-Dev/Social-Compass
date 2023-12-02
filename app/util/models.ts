@@ -3,12 +3,12 @@ export type NewUser = {
   username: string;
   email: string;
   password: string;
-  confirmPassowrd: string;
+  confirmPassword: string;
   birthdate: string;
 }
 
 export type Author ={
-  image: string;
+  image: string | null;
   name: string;
   id: string;
 };
@@ -59,6 +59,21 @@ export type Comment = {
   postId: string;
   createdAt: string;
   updatedAt: string;
-  
+  author: Author;
 }
+
+export type MarketItem = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string | null;
+  vendido: boolean;
+  createdAt: string;
+  updatedAt: string;
+  sellerId: string;
+  buyerId: string | null;
+};
+
+
 

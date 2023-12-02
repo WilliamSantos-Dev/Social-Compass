@@ -1,15 +1,7 @@
-export interface FormData {
-  name: string;
-  username: string;
-  nascimento: Date | null;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { NewUser } from "../util/models";
 
 export class validations{
-  
-  static password = (formData: FormData) => {
+  static password = (formData: NewUser) => {
     if (formData.password !== "" && formData.confirmPassword !== "") {
       if (formData.password.length < 6)
         return "A senha deve ter pelo menos 6 caracteres";
@@ -22,7 +14,7 @@ export class validations{
     return "default";
   };
   
-  static email = (formData: FormData) => {
+  static email = (formData: NewUser) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (formData.email !== "") {
       if (emailRegex.test(formData.email)) {
@@ -35,7 +27,7 @@ export class validations{
     }
   };
   
-  static fullname = (formData: FormData) => {
+  static fullname = (formData: NewUser) => {
     if (formData.name.length < 255) return true;
     if(formData.name.length > 255) {
       return "O nome não pode ter mais de 255 caracteres";
@@ -44,23 +36,22 @@ export class validations{
     }
   };
   
-  static username = (formData: FormData) => {
+  static username = (formData: NewUser) => {
     if (formData.username.length >= 255)
       return "O username não pode ter mais de 255 caracteres";
     if (formData.username.length < 255) return true;
     return "default";
   };
   
-  static birthdate = (formData: FormData) => {
-    const dateToday = new Date();
-    if (formData.nascimento != null) {
+  static birthdate = (formData: NewUser) => {
+    if (formData.birthdate !== null) {
       return true;
     } else {
       return "default";
     }
   };
   
-  static Form = (formData: FormData) => {
+  static Form = (formData: NewUser) => {
     if (
       this.email(formData) === true &&
       this.birthdate(formData) === true &&

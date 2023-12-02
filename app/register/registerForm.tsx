@@ -4,8 +4,10 @@ import Link from "next/link";
 import styles from "./Register.module.scss";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
-import { validations, FormData } from "./validations";
+import { validations } from "./validations";
 import api from "../util/api";
+import { NewUser } from "../util/models";
+import registerUser from "./register";
 
 interface Props {
   onSubmitForm: any;
@@ -13,22 +15,22 @@ interface Props {
 
 export default function RegisterForm(props: Props) {
   const { onSubmitForm } = props;
-  const initialFormData: FormData = {
+  const initialFormData: NewUser = {
     name: "",
     username: "",
-    nascimento: new Date(),
+    birthdate: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
 
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<NewUser>(initialFormData);
   const [usernameValid, setUsernameValid] = useState<string | boolean>(
     "default"
   );
   const [emailValid, setEmailValid] = useState<string | boolean>("default");
 
-  const handleInputChange = (name: keyof FormData, value: string) => {
+  const handleInputChange = (name: keyof NewUser, value: string) => {
     setFormData({
       ...formData,
       [name]: value,
@@ -37,15 +39,11 @@ export default function RegisterForm(props: Props) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Dados do formulário:", formData);
     onSubmitForm(formData);
     setEmailValid(validations.email(formData));
     setUsernameValid(validations.username(formData));
-    if (validations.Form(formData)) 
-    api.register(formData)
-    else {
-      console.log("Nao aprovado");
-    }
+    registerUser(formData)
+    console.log("AAAAAAAAAA")
   };
 
   return (
@@ -89,9 +87,9 @@ export default function RegisterForm(props: Props) {
           placeholder={"Data de Nascimento"}
           icon={"date"}
           onChange={(res: React.ChangeEvent<HTMLInputElement>) =>
-            handleInputChange("nascimento", res.target.value)
+            handleInputChange("birthdate", res.target.value)
           }
-          value={formData.nascimento}
+          value={formData.birthdate}
           isValid={validations.birthdate(formData)}
         />
         {validations.birthdate(formData) !== true &&
