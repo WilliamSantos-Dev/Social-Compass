@@ -3,20 +3,12 @@
 import React from "react";
 import styles from "./page.module.scss";
 import RegisterForm from "./registerForm";
+import { NewUser } from "../util/models";
 
 const registerImage = "register.png";
 
-interface FormData {
-  name: string;
-  username: string;
-  nascimento: string;
-  email: string;
-  senha: string;
-  confirmesenha: string;
-}
-
 export default function Home() {
-  const handleRegistrationSubmit = (formData: FormData) => {
+  const handleRegistrationSubmit = (formData: NewUser) => {
     console.log("Dados do formulário no Home:", formData);
   };
 
