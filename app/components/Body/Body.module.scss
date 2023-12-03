@@ -1,5 +1,37 @@
 .maincontent {
   background: #17181c;
   display: flex;
+  width: 100%;
   flex-direction: row;
+}
+.childrencontainer{
+  width: 100%;
+}
+
+.menu {
+  position: fixed;
+  z-index: 0;
+}
+.menucontent {
+  height: 100%;
+}
+
+.fixedMenuOpenHeader {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  padding-left: 350px;
+}
+.fixedMenuClose {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+}
+
+.children {
+  padding-top: 64px;
+}
+.childrenMenuOpen{
+  padding-top: 64px;
+  padding-left: 350px;
 }
