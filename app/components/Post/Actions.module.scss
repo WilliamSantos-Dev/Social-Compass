@@ -5,8 +5,12 @@
 }
 
 @media (max-width: 500px) {
-  .actions{
-    width: 90%;
+  .actions {
+    width: 100%;
+    justify-content: space-between;
+    p {
+      font-size: 10px;
+    }
   }
 }
 
@@ -23,15 +27,14 @@
   align-items: center;
   flex-direction: row;
   path {
-    fill: #E9B425;
+    fill: #e9b425;
   }
   p {
-    color: #E9B425;
+    color: #e9b425;
   }
   span {
-    background-color: #E9B425;
+    background-color: #e9b425;
     color: black;
-  
   }
 }
 

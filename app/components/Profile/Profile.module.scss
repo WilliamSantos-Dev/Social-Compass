@@ -25,6 +25,14 @@
     }
   }
 
+  @media (max-width: 500px) {
+    .maincontent{
+      flex-direction: column;
+    }
+    .about{
+      display: none;
+    }
+  }
   .options {
     display: flex;
     width: 100%;

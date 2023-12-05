@@ -36,16 +36,7 @@
     font-size: 20px;
     font-weight: 400;
   }
-  .profilecontainer {
-    height: 400px;
-    display: flex;
-    transform: translateY(-306px);
-    align-items: flex-end;
-    padding-left: 46px;
-    img {
-      transform: translateY(-38px);
-    }
-  }
+  
   .userdata {
   display: flex;
     width: 100%;
@@ -56,4 +47,32 @@
   }
 }
 
+.profilecontainer {
+  height: 400px;
+  display: flex;
+  transform: translateY(-306px);
+  align-items: flex-end;
+  padding-left: 46px;
+  img {
+    transform: translateY(-38px);
+  }
+}
 
+@media (max-width: 500px) {
+  .profilecontainer{
+    height: 400px;
+    display: flex;
+    transform: translateY(-160px);
+    align-items: flex-start;
+    padding-left: 25px;
+    padding-right: 25px;
+    flex-direction: column;
+    h1{
+      padding-top: 10px;
+      font-size: 20px;
+    }
+    h2{
+      font-size: 14px;
+    }
+  }
+}
