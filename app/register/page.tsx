@@ -7,9 +7,9 @@ import { NewUser } from "../util/models";
 
 const registerImage = "register.png";
 
-export default function Home() {
+export default function Register() {
   const handleRegistrationSubmit = (formData: NewUser) => {
-    console.log("Dados do formulário no Home:", formData);
+    console.log(formData);
   };
 
   return (

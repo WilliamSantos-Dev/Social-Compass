@@ -5,7 +5,7 @@ import styles from "./Register.module.scss";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 import { validations } from "./validations";
-import api from "../util/api";
+import { useRouter } from "next/navigation";
 import { NewUser } from "../util/models";
 import registerUser from "./register";
 
@@ -15,6 +15,7 @@ interface Props {
 
 export default function RegisterForm(props: Props) {
   const { onSubmitForm } = props;
+  const {push} = useRouter()
   const initialFormData: NewUser = {
     name: "",
     username: "",
@@ -37,13 +38,16 @@ export default function RegisterForm(props: Props) {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     onSubmitForm(formData);
     setEmailValid(validations.email(formData));
     setUsernameValid(validations.username(formData));
-    registerUser(formData)
-    console.log("AAAAAAAAAA")
+    const result = await registerUser(formData)
+    if(result){
+      push("/")
+    }
+    
   };
 
   return (
