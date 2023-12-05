@@ -75,5 +75,21 @@ export type MarketItem = {
   buyerId: string | null;
 };
 
+export type EditUser= {
+  name: string;
+  birthdate: string;
+  image: string;
+  sex: string;
+  address: string;
+  phone: string;
+  occupation: string;
+}
+
+
+export type NewComment  ={
+  content: string;
+  authorId: string;
+  postId: string;
+}
 
 
