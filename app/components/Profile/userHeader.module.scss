@@ -46,4 +46,14 @@
       transform: translateY(-38px);
     }
   }
+  .userdata {
+  display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 32px;
+  }
 }
+
+
