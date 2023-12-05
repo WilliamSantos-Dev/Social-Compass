@@ -18,7 +18,6 @@ export default function Menu(props: Props) {
 
   function logout(){
     Auth.logout()
-    console.log("clicou")
   }
   return (
     <div className={styles.menu}>

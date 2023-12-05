@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import styles from "./Header.module.scss";
 interface Props {
   userimage: string;
@@ -11,17 +12,18 @@ export default function Header(props: Props) {
   if(props.menuOpen === true){
     icon = "Left"
   }
+  var image = props.userimage;
   return (
     <header className={styles.header}>
       <div className={styles.leftcontent}>
         <img src={`/icons/ArrowFat${icon}.svg`} alt="Arrow Icon" onClick={props.updateMenu}/>
-        <p>SocialCompass</p>
+        <Link href="/feed"><p>SocialCompass</p></Link>
       </div>
       <div className={styles.rigthcontent}>
         <img src="/icons/GlobeHemisphereEast.svg" alt="Globe East" />
         <img src="/icons/Bell.svg" alt="Bell" />
-        <p>{props.username}</p>
-        <img className={styles.userimage}src={props.userimage} alt="User Image"/>
+        <Link href="/profile/myprofile"><p>{props.username}</p></Link>
+       <Link href="/profile/myprofile"> <img className={styles.userimage}src={image} alt="User Image" /></Link>
       </div>
     </header>
   );

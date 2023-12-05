@@ -1,13 +1,25 @@
 .button {
-    display: flex;
-    padding: 16px 24px;
-    border-radius: 46px;
-    justify-content: center;
-    border: 1px solid var(--orange, #fe2e05);
-    background: var(
-      --gradient-button,
-      linear-gradient(180deg, #ad2d14 0%, #f42e07 100%)
-    );
-    font-size: 16px;
-    font-weight: 600;
-  }
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  border-radius: 46px;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.orange {
+  border: 1px solid var(--orange, #fe2e05);
+  background: var(
+    --gradient-button,
+    linear-gradient(180deg, #ad2d14 0%, #f42e07 100%)
+  );
+}
+
+.gray {
+  border: 1px solid var(--gray-gray-900, #17181c);
+  background: var(
+    --gradient-background,
+    linear-gradient(180deg, #2e2f36 0%, #17181c 100%)
+  );
+}

@@ -37,7 +37,7 @@ export default function List(list: Props) {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.19 }}
           >
-            {list.friends && (
+            {list.friends && list.friends.length > 0 && (
               <div className={styles.listitem}>
                 {list.friends.map((friend) => (
                   <div key={friend.id} className={styles.item}>
@@ -50,7 +50,7 @@ export default function List(list: Props) {
                 ))}
               </div>
             )}
-            {list.marketItems && (
+            {list.marketItems && list.marketItems.length > 0 && (
               <div className={styles.listitem}>
                 {list.marketItems.map((item) => (
                   <div key={item.id} className={styles.item}>

@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { User } from "../../util/models";
 import Header from "../Header/Header";
 import Menu from "../Menu/Menu";
@@ -9,18 +9,25 @@ import { motion, AnimatePresence } from "framer-motion";
 interface Props {
   children: ReactNode;
   user: User;
+  feed?: boolean;
+  myprofile?: boolean;
+  marketplace?: boolean;
 }
 
-export default function Body({ children, user }: Props) {
+export default function Body(props: Props) {
   const [menuOpen, setMenuOpen] = useState(true);
-
-  const updateMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
+  const [durationMotion, setDurationMotion] = useState(0);
   var stylerHeader = styles.fixedMenuOpenHeader;
   var stylechildren = styles.childrenMenuOpen;
 
+  useEffect(() => {
+    setDurationMotion(0.3)
+  }, []);
+  
+  const updateMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  
   if (!menuOpen) {
     stylerHeader = styles.fixedMenuClose;
     stylechildren = styles.children;
@@ -36,10 +43,14 @@ export default function Body({ children, user }: Props) {
               initial={{ opacity: 0, x: "-100%" }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: "-100%" }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: durationMotion }}
             >
               <div className={styles.menucontent}>
-                <Menu />
+                <Menu
+                  marketplace={props.marketplace}
+                  myprofile={props.myprofile}
+                  feed={props.feed}
+                />
               </div>
             </motion.div>
           )}
@@ -48,13 +59,13 @@ export default function Body({ children, user }: Props) {
       <div className={styles.childrencontainer}>
         <div className={stylerHeader}>
           <Header
-            userimage={user.image}
-            username={user.name}
+            userimage={props.user.image}
+            username={props.user.name}
             menuOpen={menuOpen}
             updateMenu={updateMenu}
           />
         </div>
-        <div className={stylechildren}>{children}</div>
+        <div className={stylechildren}>{props.children}</div>
       </div>
     </div>
   );
