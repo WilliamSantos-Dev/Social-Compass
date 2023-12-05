@@ -9,12 +9,11 @@ interface Props {
 
 export default function ItemMenu(props: Props) {
   const style = props.active ? styles.active : styles.content;
-
   return (
-    <Link href={`/${props.link}`}>
-      <div className={style}>
-        <p className={styles.text}>{props.text}</p>
-      </div>
-    </Link>
+        <Link href={`/${props.link}`}>
+          <div className={style}>
+            <p className={styles.text}>{props.text}</p>
+          </div>
+        </Link>
   );
 }

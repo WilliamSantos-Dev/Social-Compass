@@ -9,7 +9,7 @@ export default function NewPost(props: Props) {
   return (
     <div className={styles.container}>
       <InputContent
-        userimage={props.userimage}
+        userimage={props.userimage || "noprofile.jpg"}
         placeholder="No que você está pensando?"
       />
       <div className={styles.options}>

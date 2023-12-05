@@ -18,7 +18,6 @@ export default function UserHeader(props: Props) {
   function click(){
     if(props.onEditClick){
       props.onEditClick()
-      console.log("AAA", props.onEditClick)
     }
   }
   return (
