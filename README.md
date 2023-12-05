@@ -1,3 +1,15 @@
+<div>
+    <h1>Challenge - Social Compass </h1>
+    <p>Bem-vindo ao projeto "Social Compass", uma rede social interna da Compass UOL que visa melhorar a comunicação informal entre os colaboradores. Este projeto inclui funcionalidades de cadastro de usuários, login, feed de posts, página de perfil, marketplace (opcional) e detalhes do item (opcional).
+
+<p>
+    <img src="./public/home.png"/>
+    <hr>
+    <img src="./public/login.png"/>
+    <hr>
+    <img src="./public/feed.png"/>
+</div>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
