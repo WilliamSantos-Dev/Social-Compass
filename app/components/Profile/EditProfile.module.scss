@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    width: 500px;
+    height: 100%;
+    padding: 24px;
+    gap: 24px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 16px;
+    border: 2px solid var(--gray-gray-600, #2e2f36);
+    background: var(--gray-gray-700, #1e1f23);
+  
+    h1 {
+      color: #fff;
+      font-family: Poppins;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .inputs {
+      display: flex;
+      gap: 24px;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  

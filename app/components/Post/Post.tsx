@@ -1,27 +1,50 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
 import api from "../../util/api";
-import { Post } from "../../util/models";
+import { Post as PostType, User, Comment as CommentType, Post } from "../../util/models";
 import InputContent from "../InputContent/InputContent";
 import Actions from "./Actions";
 import styles from "./Post.module.scss";
 import calculateTime from "./calculateTime";
+import Comments from "../Comment/Comments";
 
 interface Props {
-  post?: Post;
+  post: PostType;
+  user: User;
 }
 
-export default async function Post(props: Props) {
-  const post = await api.testePost();
-  const user = await api.testAutor();
+export default function Post(props: Props) {
+  const author = props.post.author;
+  const [post, setPost] = useState(props.post)
+
+  async function handleCommentSubmit() {
+ 
+    const author = localStorage.getItem("id") as string;
+    const token = localStorage.getItem('token') as string;
+    const comment = {
+      content: inputText,
+      authorId: author,
+      postId: props.post.id,
+    };
+    const allPosts = await api.getPosts(localStorage.getItem("token") as string);
+    const updatePost = allPosts.find(postItem => postItem.id === post.id);
+    setInputText('');
+    setPost(updatePost as PostType);
+  }
+
+  const [inputText, setInputText] = useState("");
+  const comments = [...post.comments].reverse();
   return (
     <div className={styles.postcontainer}>
       <div className={styles.userinfo}>
-        <img src={user.image} alt="Image User" className={styles.userimage} />
+        <img src={author.image || "/noprofile.jpg"} alt="Image User" className={styles.userimage} />
         <div className={styles.userinfotext}>
-          <h1 className={styles.username}>{user.name}</h1>
+          <h1 className={styles.username}>{author.name}</h1>
           <div className={styles.clock}>
             <img src="/icons/clock.svg" alt="Clock Icon" />
-            <p className={styles.datepost}>{calculateTime(new Date(post.createdAt))}</p>{" "}
+            <p className={styles.datepost}>
+              {calculateTime(new Date(post.createdAt))}
+            </p>{" "}
             {post.location && (
               <p className={styles.datepost}>
                 {" "}
@@ -31,13 +54,20 @@ export default async function Post(props: Props) {
           </div>
         </div>
       </div>
-
       <p>{post.text}</p>
       {post.image && (
         <img src={post.image} alt="Image Post" className={styles.postimage} />
       )}
       <Actions post={post} />
-      <InputContent userimage={user.image} inputsOptions />
+      <InputContent
+        userimage={props.user.image || "/noprofile.jpg"}
+        inputsOptions
+        placeholder="Tem algo a dizer?"
+        isComment
+        postId={post.id}
+        onCommentSubmit={handleCommentSubmit}
+      />
+      {post.comments.length > 0 && <Comments comments={comments} />}
     </div>
   );
 }

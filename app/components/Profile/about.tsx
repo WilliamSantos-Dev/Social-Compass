@@ -28,7 +28,10 @@ export default function About({ user }: { user: User }) {
     return resultado;
   }
 
-  const birthdayText = coverterDate(userBirthday);
+  var birthdayText = "";
+  if (userBirthday) {
+    birthdayText = coverterDate(userBirthday);
+  }
 
   return (
     <div className={styles.about}>
@@ -39,19 +42,19 @@ export default function About({ user }: { user: User }) {
           <p>{user.sex}</p>
         </div>
         <div className={styles.aboutitem}>
-        <img src="/icons/birthday.svg" alt="" />
+          <img src="/icons/birthday.svg" alt="" />
           <p>{birthdayText}</p>
         </div>
         <div className={styles.aboutitem}>
-        <img src="/icons/Location.svg" alt="" />
+          <img src="/icons/Location.svg" alt="" />
           <p>{user.address}</p>
         </div>
         <div className={styles.aboutitem}>
-        <img src="/icons/Message.svg" alt="" />
+          <img src="/icons/Message.svg" alt="" />
           <p>{user.email}</p>
         </div>
         <div className={styles.aboutitem}>
-        <img src="/icons/Call.svg" alt="" />
+          <img src="/icons/Call.svg" alt="" />
           <p>{user.phone}</p>
         </div>
       </div>
