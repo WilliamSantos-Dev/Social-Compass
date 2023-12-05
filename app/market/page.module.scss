@@ -1,0 +1,43 @@
+.maincontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 64px;
+
+  h2 {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  .additemgroup{
+    transform: translateY(-55px);
+  }
+  .additem {
+    display: flex;
+    padding: 16px 24px;
+    align-items: flex-start;
+    border-radius: 46px;
+    border: 1px solid var(--orange, #fe2e05);
+    background: var(
+      --gradient-button,
+      linear-gradient(180deg, #ad2d14 0%, #f42e07 100%)
+      
+    );
+    transform: translateX(530px);
+
+  }
+}
+
+.items {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-right: 64px;
+  padding-left: 64px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
