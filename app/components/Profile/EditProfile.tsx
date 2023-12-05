@@ -7,6 +7,7 @@ import styles from "./EditProfile.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "../../util/api";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../Contexts/AuthContext";
 
 interface Props {
   user: User;
@@ -15,6 +16,7 @@ interface Props {
 
 export default function EditProfile(props: Props) {
   const router = useRouter();
+  const auth = useAuth()
   const [formData, setFormData] = useState<EditUser>({
     name: props.user.name,
     occupation: props.user.occupation,
@@ -37,7 +39,7 @@ export default function EditProfile(props: Props) {
   };
 
   async function handleSubmit() {    
-    const token = localStorage.getItem("token");
+    const token = auth.token
     const res = await api.updateUser(formData, props.user.id, token!);
     router.refresh()
 

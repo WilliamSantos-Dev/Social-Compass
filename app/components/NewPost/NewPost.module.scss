@@ -28,3 +28,9 @@
   border: 2px solid var(--gray-gray-600, #2e2f36);
   background: var(--gray-gray-700, #1e1f23);
 }
+
+@media (max-width: 500px) {
+  .container{
+    width: 90%;
+  }
+}

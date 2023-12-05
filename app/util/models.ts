@@ -92,4 +92,11 @@ export type NewComment  ={
   postId: string;
 }
 
+export type NewPostType = {
 
+  text: string;
+  location: string;
+  image: string;
+  authorId: string;
+  
+}

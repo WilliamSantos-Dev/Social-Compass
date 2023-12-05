@@ -1,5 +1,5 @@
 import "./models";
-import { EditUser, MarketItem, NewComment, NewUser, Post } from "./models";
+import { EditUser, MarketItem, NewComment, NewPostType, NewUser, Post } from "./models";
 var userTokenAuth = "";
 
 type User = {
@@ -107,12 +107,17 @@ export class API {
     return await this.get(`market`, token);
   }
 
+  async getMarketItemById(id: string, token:string){
+    return await this.get(`market/${id}`, token);
+  }
+
   async getPosts(token: string) {
     return (async () =>
       (await this.get(`posts`, token)).map((post: Post) => ({
         ...post,
       })))() as Promise<Post[]>;
   }
+
 
   async register(user: NewUser) {
     const token = ""
@@ -121,6 +126,10 @@ export class API {
 
   async createComment(comment: NewComment, token: string){
     return await this.post('comments', comment, token)
+  }
+
+  async createPost(post: NewPostType, token: string){
+    return await this.post('posts', post, token)
   }
 
   public getCover() {

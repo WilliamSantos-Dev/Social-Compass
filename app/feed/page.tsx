@@ -17,14 +17,11 @@ export default function Feed() {
   const [marketItems, setMarketItems] = useState<MarketItem[]>([]);
   const [listFriends, setListFriends] = useState<User[]>([]);
   const [user, setUser] = useState<User>();
-  const Auth = useAuth()
+  const Auth = useAuth();
 
   async function load() {
-    const id = localStorage.getItem("id") as string
-    const token  = localStorage.getItem("token") as string
-    if(!id || !token){
-      Auth.logout()
-    }
+    const id = auth.id;
+    const token = auth.token;
     setUser(await api.getUser(id, token));
     setListPost(await api.getPosts(token));
     setMarketItems(await api.getMarketItems(token));
@@ -35,25 +32,23 @@ export default function Feed() {
     load();
   }, []);
 
+  if (!user) return <Load />;
   return (
     <>
-      {user && (
-        <Body user={user} feed>
-          <div className={styles.feed}>
-            <div className={styles.content}>
-              <NewPost userimage={user.image} />
-              {listPost.map((item) => (
-                <Post post={item} user={user} key={item.id} />
-              ))}
-            </div>
-            <div className={styles.topics}>
-              <List friends={listFriends} listName="Meus Amigos" />
-              <List marketItems={marketItems} listName="Itens em Destaque" />
-            </div>
+      <Body user={user} feed>
+        <div className={styles.feed}>
+          <div className={styles.content}>
+            <NewPost userimage={user.image} />
+            {listPost.map((item, index) => (
+              <Post post={item} user={user} key={`${item.id}${index}`} />
+            ))}
           </div>
-        </Body>
-      )}
-      {!user && <Load/>}
+          <div className={styles.topics}>
+            <List friends={listFriends} listName="Meus Amigos" />
+            <List marketItems={marketItems} listName="Itens em Destaque" />
+          </div>
+        </div>
+      </Body>
     </>
   );
 }

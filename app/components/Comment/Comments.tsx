@@ -17,9 +17,9 @@ export default function Comments({ comments }: { comments: CommentType[] }) {
     <div className={styles.container}>
       <p>Todos os comentários:</p>
       <AnimatePresence>
-        {visibleComments.map((comment) => (
+        {visibleComments.map((comment,index) => (
           <motion.div
-            key={comment.id}
+            key={`${comment.id}${index}`}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}

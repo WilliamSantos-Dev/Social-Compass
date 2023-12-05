@@ -9,7 +9,6 @@ import api from "./util/api";
 import { useAuth } from "./Contexts/AuthContext";
 import { User } from "./util/models";
 import { useRouter } from "next/navigation";
-import { authorize } from "./Auth/authorize";
 
 const registerImage = "register.png";
 
@@ -20,10 +19,7 @@ export default function Home() {
   const [username, setUser] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [userValid, setUserValid] = useState<string | boolean>("default");
-  if (authorize()) {
-    router.push("/feed");
-  }
-  
+   
 
   async function handleLoginSubmit(event: SyntheticEvent) {
     event.preventDefault();

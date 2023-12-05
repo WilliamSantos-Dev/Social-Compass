@@ -2,6 +2,8 @@
 import { useState } from "react";
 import styles from "./InputContent.module.scss";
 import api from "../../util/api";
+import Link from "next/link";
+import { useAuth } from "../../Contexts/AuthContext";
 
 interface Props {
   placeholder?: string;
@@ -9,47 +11,73 @@ interface Props {
   isComment?: boolean;
   postId?: string;
   userimage: string;
+  isNewPost?: boolean;
   onCommentSubmit?: () => void;
+  onPostSubmit?: () => any;
+  onSubmitAction?: () => void;
 }
 
 export default function InputContent(props: Props) {
   const [inputText, setInputText] = useState("");
+  const [location, setLocation] = useState("");
+  const [image, setImage] = useState("");
+  const auth = useAuth();
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInputText(event.target.value);
   }
 
-  async function action(action: string) {
-    if (action === "comment" && props.postId) {
-      const author = localStorage.getItem("id") as string;
-      const token = localStorage.getItem('token') as string;
+  async function action() {
+    if (props.postId && props.isComment) {
+      const author = auth.id;
+      const token = auth.token;
       const comment = {
         content: inputText,
         authorId: author,
         postId: props.postId,
       };
       await api.createComment(comment, token);
-      setInputText('');
-      if(props.onCommentSubmit){
+      setInputText("");
+      if (props.onCommentSubmit) {
         props.onCommentSubmit();
+      }
+    }
+
+    if (props.isNewPost) {
+      await api.createPost(
+        {
+          text: inputText,
+          location: location,
+          image: image,
+          authorId: auth.id,
+        },
+        auth.token
+      );
+      setInputText("");
+      if (props.onPostSubmit) {
+        props.onPostSubmit();
+      }
+
+      if (props.onSubmitAction) {
+        props.onSubmitAction();
       }
     }
   }
 
   function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter' && inputText.trim() !== "") {
-      action("comment");
+    if (event.key === "Enter" && inputText.trim() !== "") {
+      action();
     }
   }
-  
-
   return (
     <div className={styles.container}>
-      <img
-        src={props.userimage}
-        alt="user image"
-        className={styles.userimage}
-      />
+      <Link href={`/profile/myprofile`}>
+        <img
+          src={props.userimage}
+          alt="user image"
+          className={styles.userimage}
+        />
+      </Link>
       <div className={styles.inputcontent}>
         <input
           type="text"
@@ -57,7 +85,7 @@ export default function InputContent(props: Props) {
           className={styles.input}
           value={inputText}
           onChange={handleInputChange}
-          onKeyPress={handleKeyPress} 
+          onKeyPress={handleKeyPress}
         />
         {props.inputsOptions && (
           <div className={styles.inputoptions}>
@@ -71,7 +99,7 @@ export default function InputContent(props: Props) {
                 src="/icons/send.svg"
                 alt="send"
                 className={styles.sent}
-                onClick={() => action("comment")}
+                onClick={() => action()} 
               />
             )}
           </div>

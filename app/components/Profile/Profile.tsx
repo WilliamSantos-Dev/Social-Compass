@@ -7,6 +7,7 @@ import About from "./about";
 import UserHeader from "./userHeader";
 import EditProfile from "./EditProfile";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "../../Contexts/AuthContext";
 
 interface Props {
   user: User;
@@ -19,16 +20,19 @@ export default function Profile(props: Props) {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [posts, setPosts] = useState<PostType[]>([]);
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const auth = useAuth()
 
   async function load() {
-    const token = localStorage.getItem("token");
-    if (token) setPosts(await api.getPosts(token));
+    const token = auth.token
+    if (token) {
+      const listPosts = await api.getPosts(token);
+      setPosts(listPosts.filter((post) => post.author.id === props.user.id));
+    }
   }
-
   const handleEditProfileClick = () => {
     setIsEditProfileOpen(!isEditProfileOpen);
   };
-  
+
   const handleOutsideClick = useCallback(
     (event: any) => {
       if (
@@ -41,7 +45,6 @@ export default function Profile(props: Props) {
     },
     [isEditProfileOpen]
   );
-
   const handleEscapeKey = useCallback(
     (event: any) => {
       if (isEditProfileOpen && event.key === "Escape") {
@@ -60,19 +63,17 @@ export default function Profile(props: Props) {
     if (isEditProfileOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
       document.addEventListener("keydown", handleEscapeKey);
-      // Adiciona a classe de bloqueio do overflow quando o modal é aberto
       document.body.style.overflow = "hidden";
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
       document.removeEventListener("keydown", handleEscapeKey);
-      // Remove a classe de bloqueio do overflow quando o modal é fechado
       document.body.style.overflow = "auto";
     }
-
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
       document.removeEventListener("keydown", handleEscapeKey);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditProfileOpen, handleOutsideClick, handleEscapeKey]);
 
   return (
@@ -85,6 +86,13 @@ export default function Profile(props: Props) {
       <div className={styles.maincontent}>
         <About user={user} />
         <div className={styles.feed}>
+          <div className={styles.options}>
+            <p>Followers</p> <p>Following</p>
+            <p>
+              <span>Posts</span>
+            </p>
+          </div>
+          <hr />
           <div className={styles.posts}>
             {posts.map((item) => (
               <Post post={item} user={user} key={item.id} />

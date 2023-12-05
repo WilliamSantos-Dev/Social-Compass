@@ -2,11 +2,13 @@
 import React from "react";
 import { MarketItem as MarketItemType } from "../util/models";
 import styles from "./MarketItem.module.scss";
+import Link from "next/link";
 interface Props {
   item: MarketItemType;
 }
 export const MarketItem = (props: Props) => {
   return (
+   <Link href={`market/${props.item.id}`}>
     <div className={styles.item}>
       <div className={styles.itemimage}>
         <img src={props.item.image || "noimageitem.jpg"} alt="Item market" />
@@ -24,5 +26,6 @@ export const MarketItem = (props: Props) => {
         )}
       </div>
     </div>
+    </Link> 
   );
 };

@@ -7,6 +7,8 @@ import Actions from "./Actions";
 import styles from "./Post.module.scss";
 import calculateTime from "./calculateTime";
 import Comments from "../Comment/Comments";
+import Link from "next/link";
+import { useAuth } from "../../Contexts/AuthContext";
 
 interface Props {
   post: PostType;
@@ -14,19 +16,12 @@ interface Props {
 }
 
 export default function Post(props: Props) {
+  const auth = useAuth()
   const author = props.post.author;
   const [post, setPost] = useState(props.post)
 
   async function handleCommentSubmit() {
- 
-    const author = localStorage.getItem("id") as string;
-    const token = localStorage.getItem('token') as string;
-    const comment = {
-      content: inputText,
-      authorId: author,
-      postId: props.post.id,
-    };
-    const allPosts = await api.getPosts(localStorage.getItem("token") as string);
+    const allPosts = await api.getPosts(auth.token);
     const updatePost = allPosts.find(postItem => postItem.id === post.id);
     setInputText('');
     setPost(updatePost as PostType);
@@ -37,7 +32,7 @@ export default function Post(props: Props) {
   return (
     <div className={styles.postcontainer}>
       <div className={styles.userinfo}>
-        <img src={author.image || "/noprofile.jpg"} alt="Image User" className={styles.userimage} />
+        <Link href={`/profile/${author.id}`}><img src={author.image || "/noprofile.jpg"} alt="Image User" className={styles.userimage} /></Link>
         <div className={styles.userinfotext}>
           <h1 className={styles.username}>{author.name}</h1>
           <div className={styles.clock}>

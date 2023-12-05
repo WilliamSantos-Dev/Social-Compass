@@ -8,12 +8,13 @@ import { useAuth } from "../Contexts/AuthContext";
 import Load from "../components/Load/load";
 
 const Market = () => {
-  const Auth = useAuth();
-  const user = Auth.user;
+  const auth = useAuth();
+  const [user, setUser] = useState() 
   const [items, setItems] = useState([]);
 
   async function loadItems() {
-    setItems(await api.getMarketItems(Auth.getToken()));
+    setItems(await api.getMarketItems(auth.token));
+    setUser(await api.getUser(auth.id, auth.token))
   }
   useEffect(() => {
     loadItems();

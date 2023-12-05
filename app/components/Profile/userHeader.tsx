@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
+import { useState } from "react";
 import api from "../../util/api";
 import { User } from "../../util/models";
 import Button from "../Button/Button";
@@ -12,8 +13,8 @@ interface Props {
 }
 
 export default function UserHeader(props: Props) {
-  const user = props.user;
-  const cover = api.getCover();
+  const user = props.user;  
+  const [cover, setCover] = useState(api.getCover())
 
   function click(){
     if(props.onEditClick){

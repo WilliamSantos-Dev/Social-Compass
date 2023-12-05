@@ -7,6 +7,10 @@ interface Props{
     colorGray?:boolean
 }
 export default function Button(props: Props){   
+    function actionexecute(){
+        if(props.action)
+        props.action()
+    }
     var stylebutton = `${styles.button} ${styles.orange}`;
     const buttonWidth = {
         width: `${props.width ?? 406}px`,
@@ -16,7 +20,7 @@ export default function Button(props: Props){
     }
     return(
         <>
-        <button className={stylebutton} style={buttonWidth} type={props.type}>
+        <button className={stylebutton} style={buttonWidth} type={props.type} onClick={actionexecute}>
           {props.text}
         </button>
         </>

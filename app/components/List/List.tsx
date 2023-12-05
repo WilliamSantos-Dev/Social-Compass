@@ -4,6 +4,7 @@ import styles from "./List.module.scss";
 import { MarketItem, User } from "../../util/models";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 interface Props {
   friends?: User[];
@@ -39,21 +40,24 @@ export default function List(list: Props) {
           >
             {list.friends && list.friends.length > 0 && (
               <div className={styles.listitem}>
-                {list.friends.map((friend) => (
-                  <div key={friend.id} className={styles.item}>
-                    <img
-                      src={friend.image || "/noprofile.jpg"}
-                      alt={friend.name}
-                    />
-                    <p>{friend.name}</p>
-                  </div>
+                {list.friends.map((friend, index) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <Link href={`/profile/${friend.id}`}>
+                    <div key={`${friend.id}${index}`} className={styles.item}>
+                      <img
+                        src={friend.image || "/noprofile.jpg"}
+                        alt={friend.name}
+                      />
+                      <p>{friend.name}</p>
+                    </div>
+                  </Link>
                 ))}
               </div>
             )}
             {list.marketItems && list.marketItems.length > 0 && (
               <div className={styles.listitem}>
-                {list.marketItems.map((item) => (
-                  <div key={item.id} className={styles.item}>
+                {list.marketItems.map((item, index) => (
+                  <div key={`${item.id}${index}`} className={styles.item}>
                     <img
                       src={item.image || "/noimageitem.jpg"}
                       alt={item.name}

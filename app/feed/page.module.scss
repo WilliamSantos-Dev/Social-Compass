@@ -17,3 +17,10 @@
     flex-direction: column;
     gap: 36px;
   }
+
+  @media (max-width: 500px) {
+  .content{
+    align-items: center;
+  }
+  }
+  
