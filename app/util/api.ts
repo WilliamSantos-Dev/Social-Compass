@@ -1,5 +1,12 @@
 import "./models";
-import { EditUser, MarketItem, NewComment, NewPostType, NewUser, Post } from "./models";
+import {
+  EditUser,
+  MarketItem,
+  NewComment,
+  NewPostType,
+  NewUser,
+  Post,
+} from "./models";
 var userTokenAuth = "";
 
 type User = {
@@ -40,6 +47,20 @@ export class API {
     return res.json();
   }
 
+  private async delete(path: string, token: string) {
+    const url = new URL(path, this.baseURL);
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok)
+      throw { message: `Could not fetch from ${url}`, status: res.status };
+    return res.json();
+  }
+
   private async post(path: string, body: any, token: string) {
     const url = new URL(path, this.baseURL);
     const res = await fetch(url, {
@@ -59,7 +80,7 @@ export class API {
   private async put(path: string, body: any, token: string) {
     const url = new URL(path, this.baseURL);
     const res = await fetch(url, {
-      method: "PUT", 
+      method: "PUT",
       headers: {
         accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -67,11 +88,11 @@ export class API {
       },
       body: JSON.stringify(body),
     });
-  
+
     if (!res.ok) {
       throw { message: `Could not put to ${url}`, status: res.status };
     }
-    console.log("PUT", res)
+    console.log("PUT", res);
     return res.json();
   }
 
@@ -99,15 +120,15 @@ export class API {
     return await this.get(`users`, token);
   }
 
-  async updateUser(user: EditUser, id: string, token:string){
-    return this.put(`users/${id}`, user, token)
+  async updateUser(user: EditUser, id: string, token: string) {
+    return this.put(`users/${id}`, user, token);
   }
 
   async getMarketItems(token: string) {
     return await this.get(`market`, token);
   }
 
-  async getMarketItemById(id: string, token:string){
+  async getMarketItemById(id: string, token: string) {
     return await this.get(`market/${id}`, token);
   }
 
@@ -118,18 +139,37 @@ export class API {
       })))() as Promise<Post[]>;
   }
 
-
   async register(user: NewUser) {
-    const token = ""
+    const token = "";
     return await this.post("auth/register", user, token);
   }
 
-  async createComment(comment: NewComment, token: string){
-    return await this.post('comments', comment, token)
+  async createComment(comment: NewComment, token: string) {
+    return await this.post("comments", comment, token);
   }
 
-  async createPost(post: NewPostType, token: string){
-    return await this.post('posts', post, token)
+  async createPost(post: NewPostType, token: string) {
+    return await this.post("posts", post, token);
+  }
+
+  async deletePostByIn(idpost: string, token: string) {
+    return await this.delete(`posts/${idpost}`, token);
+  }
+
+  async deleteComment(idcomment: string, token: string) {
+    return await this.delete(`comments/${idcomment}`, token);
+  }
+
+  async createItem(id: string, token: string) {
+    //fução temporaria por falta de tempo
+    const body = {
+      name: "Novo Item",
+      sellerId: id,
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      price: 300.0,
+    };
+    return await this.post('market', body, token)
   }
 
   public getCover() {

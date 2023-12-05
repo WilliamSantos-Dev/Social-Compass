@@ -9,27 +9,34 @@ import Load from "../components/Load/load";
 
 const Market = () => {
   const auth = useAuth();
-  const [user, setUser] = useState() 
+  const [user, setUser] = useState();
   const [items, setItems] = useState([]);
 
   async function loadItems() {
     setItems(await api.getMarketItems(auth.token));
-    setUser(await api.getUser(auth.id, auth.token))
+    setUser(await api.getUser(auth.id, auth.token));
   }
   useEffect(() => {
     loadItems();
   }, []);
 
+  async function adicionarItem() {
+    await api.createItem(auth.id, auth.token);
+    loadItems();
+  }
+
   return (
     <>
-      {user &&(
+      {user && (
         <Body user={user} marketplace>
           <div className={styles.maincontent}>
             <div>
               <h2>TODOS OS ITENS</h2>
               <h1>Marketplace</h1>
               <div className={styles.additemgroup}>
-                <button className={styles.additem}>Adicionar Item</button>
+                <button className={styles.additem} onClick={adicionarItem}>
+                  Adicionar Item
+                </button>
               </div>
             </div>
             <div className={styles.items}>

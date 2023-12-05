@@ -23,9 +23,13 @@ export default function Feed() {
     const id = auth.id;
     const token = auth.token;
     setUser(await api.getUser(id, token));
-    setListPost(await api.getPosts(token));
+    setListPost((await api.getPosts(token)).reverse());
     setMarketItems(await api.getMarketItems(token));
     setListFriends(await api.getAllUsers(token));
+  }
+
+  async function updatePosts(){
+    setListPost((await api.getPosts(auth.token)).reverse());
   }
 
   useEffect(() => {
@@ -38,9 +42,9 @@ export default function Feed() {
       <Body user={user} feed>
         <div className={styles.feed}>
           <div className={styles.content}>
-            <NewPost userimage={user.image} />
+            <NewPost userimage={user.image} action={updatePosts}/>
             {listPost.map((item, index) => (
-              <Post post={item} user={user} key={`${item.id}${index}`} />
+              <Post post={item} user={user} key={`${item.id}${index}` } action={load}/>
             ))}
           </div>
           <div className={styles.topics}>

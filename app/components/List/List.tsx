@@ -57,16 +57,19 @@ export default function List(list: Props) {
             {list.marketItems && list.marketItems.length > 0 && (
               <div className={styles.listitem}>
                 {list.marketItems.map((item, index) => (
-                  <div key={`${item.id}${index}`} className={styles.item}>
-                    <img
-                      src={item.image || "/noimageitem.jpg"}
-                      alt={item.name}
-                    />
-                    <div className={styles.iteminfo}>
-                      <p>{item.name}</p>
-                      <p className={styles.price}> R$ {item.price}</p>
+                  // eslint-disable-next-line react/jsx-key
+                  <Link href={`/market/${item.id}`}>
+                    <div key={`${item.id}${index}`} className={styles.item}>
+                      <img
+                        src={item.image || "/noimageitem.jpg"}
+                        alt={item.name}
+                      />
+                      <div className={styles.iteminfo}>
+                        <p>{item.name}</p>
+                        <p className={styles.price}> R$ {item.price}</p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}

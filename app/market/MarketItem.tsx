@@ -19,7 +19,7 @@ export const MarketItem = (props: Props) => {
           <p>{props.item.description}</p>
           <span>R$ {props.item.price}</span>
         </div>
-        {props.item.vendido ? (
+        {props.item.vendido === false ? (
           <button className={styles.notselled}>Ainda não vendido.</button>
         ) : (
           <button className={styles.selled}>Já vendido!</button>

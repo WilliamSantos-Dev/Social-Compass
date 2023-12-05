@@ -26,7 +26,7 @@ export default function Profile(props: Props) {
     const token = auth.token
     if (token) {
       const listPosts = await api.getPosts(token);
-      setPosts(listPosts.filter((post) => post.author.id === props.user.id));
+      setPosts(listPosts.filter((post) => post.author.id === props.user.id).reverse());
     }
   }
   const handleEditProfileClick = () => {
@@ -95,7 +95,7 @@ export default function Profile(props: Props) {
           <hr />
           <div className={styles.posts}>
             {posts.map((item) => (
-              <Post post={item} user={user} key={item.id} />
+              <Post post={item} user={user} key={item.id} action={load}/>
             ))}
           </div>
           <AnimatePresence>
